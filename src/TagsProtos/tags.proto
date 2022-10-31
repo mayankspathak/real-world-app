@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "TagsService.Protos";
+
+import "google/protobuf/empty.proto";
+
+message PublishTags {
+	repeated string names = 1;
+	string articleId = 2;
+}
+
+message TagView {
+	string id = 1;
+	string name = 2;
+	repeated string articleIds = 3;
+}
+
+message TagsView {
+	repeated TagView tags = 1;
+}
+
+service TagService {
+	rpc PublishCollection (PublishTags) returns (TagsView);
+	rpc GetAll (google.protobuf.Empty) returns (TagsView);
+	rpc GetByArticle(ByArticleId) returns (TagsView);
+}
+
+message ByArticleId {
+	string articleId = 1;
+}
